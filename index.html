@@ -5,228 +5,281 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pheipen Plugins</title>
 <meta name="description" content="Gratis Plugins von Pheipen für macOS (VST3 und AU): 808 SURGEON und FIRST TAKE.">
+<meta name="theme-color" content="#121212">
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@500&display=swap">
 <style>
-  /* Layout: the two plugins side by side (picture on top, text and download below), shared install
-     steps underneath; the columns stack on phones. One deliberate light look (the box artwork sits on white), so no dark variant. */
+  /* Concept: a quiet catalogue page, like the spec sheet of a high-end hardware maker.
+     Small, precise device plates, lots of air, one light source, no glow on the interface itself. */
   :root {
-    --bg: #ffffff;
-    --ink: #10202d;
-    --muted: #4d6273;
-    --line: #dce6ee;
-    --blue: #1784d8;
-    --blue-deep: #0b5fa8;
-    --glow: rgba(60, 160, 255, 0.45);
-    --graphite: #1b1c1e;
-    --graphite-hi: #34363a;
-    --amber: #f2b45a;
-    --font: "Open Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    --grotesk: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
-    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);       /* strong ease-out for UI feedback */
-    color-scheme: light;
+    --bg: #121212;
+    --bg-lift: #181818;
+    --ink: #edeae4;
+    --soft: #b9b6b0;
+    --muted: #7d7b77;
+    --line: rgba(237, 234, 228, 0.09);
+    --amber: #e8b46a;
+    --blue: #7cc4f5;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --font: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--font); }
-  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; }
-
-  header.site { padding-block: 36px 8px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
-  header.site p { margin: 0; }
-  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; }
-  .claim { color: var(--muted); }
-
-  .products {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 56px; padding-block: 32px 40px; border-bottom: 1px solid var(--line);
+  html { background: var(--bg); }
+  body {
+    margin: 0; color: var(--ink); font: 400 16px/1.65 var(--font);
+    background: radial-gradient(70% 38rem at 50% -10rem, rgba(255, 244, 228, 0.06), transparent 75%), var(--bg);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
-  .product { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
-  /* same picture height in both columns, so the text starts on one line */
-  .visual { margin: 0; display: flex; justify-content: center; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 32px; }
 
-  /* Logo plates: same size and layout for both plugins, each in its own plugin's look */
-  .plate {
-    width: 100%; max-width: 400px; height: 280px; border-radius: 10px;
-    display: grid; grid-template-rows: auto 1fr; padding: 22px 24px; gap: 18px; color: #e9e9e9;
-    box-shadow: 0 18px 40px rgba(16, 32, 45, 0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+  header.site { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 28px; }
+  header.site h1 { margin: 0; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.22em; }
+  header.site p { margin: 0; color: var(--muted); font-size: 0.875rem; }
+
+  .intro { padding-block: clamp(72px, 12vw, 152px) clamp(56px, 8vw, 104px); }
+  .intro p {
+    margin: 0; max-width: 16em; font-size: clamp(2.1rem, 5vw, 3.6rem); line-height: 1.08;
+    font-weight: 300; letter-spacing: -0.035em; text-wrap: balance;
   }
-  /* FIRST TAKE: brushed graphite, metal fader caps */
-  .plate.take {
+  .intro p span { color: var(--muted); }
+
+  /* Catalogue rows */
+  .product {
+    display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px clamp(40px, 7vw, 96px);
+    align-items: start; padding-block: clamp(48px, 7vw, 80px); border-top: 1px solid var(--line);
+  }
+  .product:last-of-type { border-bottom: 1px solid var(--line); }
+
+  /* Device plates */
+  .unit {
+    position: relative; width: 100%; max-width: 300px; aspect-ratio: 3 / 2; border-radius: 10px; padding: 4px;
+    background: linear-gradient(180deg, #4a4c50, #232427 22%, #18191b 82%, #2c2e31);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 0 0 1px #000, 0 30px 40px -24px rgba(0, 0, 0, 0.95);
+  }
+  .face {
+    position: relative; height: 100%; border-radius: 7px; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr; gap: 9%; padding: 8% 9% 9%;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), inset 0 0 0 1px rgba(0, 0, 0, 0.75);
+  }
+  .face::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0.07), transparent 30%); }
+  .screw { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #d8dadc, #6f7276 60%, #333538); box-shadow: 0 1px 1px rgba(0,0,0,0.8); }
+  .screw.tl { top: 5%; left: 3.5%; } .screw.tr { top: 5%; right: 3.5%; } .screw.bl { bottom: 5%; left: 3.5%; } .screw.br { bottom: 5%; right: 3.5%; }
+  .topline { position: relative; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 0.82rem; line-height: 1; color: #f1f1ef; }
+  .led { width: 5px; height: 5px; border-radius: 50%; background: #2a2b2d; transition: background 400ms ease, box-shadow 400ms ease; }
+  .scale { font: 500 0.42rem/1 var(--mono); letter-spacing: 0.06em; color: #85888c; }
+
+  .surgeon .face {
     background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px),
-      linear-gradient(160deg, var(--graphite-hi), var(--graphite) 60%);
+      radial-gradient(70% 70% at 8% 120%, rgba(123, 224, 138, 0.22), transparent 70%),
+      radial-gradient(60% 60% at 96% -14%, rgba(110, 190, 250, 0.30), transparent 72%),
+      linear-gradient(180deg, #1f2429 0%, #0d0f12 60%, #0a0b0d 100%);
   }
-  .plate.take .logo { font: 700 1.6rem/1 var(--grotesk); letter-spacing: 0.12em; }
+  .surgeon .logo { font-weight: 300; letter-spacing: 0.02em; }
+  .surgeon .logo b { font-weight: 600; color: var(--blue); }
+  .surgeon.on .led { background: var(--blue); box-shadow: 0 0 6px rgba(124, 196, 245, 0.7); }
+  .meters { position: relative; display: flex; justify-content: space-between; gap: 8%; }
+  .meter { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .meter .bar { position: relative; flex: 1; width: 9px; border-radius: 2px; background: #0b0c0e; box-shadow: inset 0 0 0 1px #000, 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
+  .meter .fill {
+    position: absolute; left: 1px; right: 1px; bottom: 1px; height: var(--h); border-radius: 1px;
+    background: linear-gradient(90deg, #3b8f37, #8ed37f 45%, #4aa244);
+    transform-origin: bottom; transform: scaleY(0); transition: transform 1200ms var(--ease-out);
+  }
+  .meter .target { position: absolute; left: 0; right: 0; bottom: var(--t); height: 2px; transform: translateY(50%); background: #5aa8ef; }
+  .surgeon.on .fill { transform: scaleY(1); }
 
-  /* 808 SURGEON: black lacquer lit by a blue and green aurora, overtone bars with target lines */
-  .plate.surgeon {
+  .take .face {
     background:
-      radial-gradient(70% 60% at 12% 115%, rgba(123, 224, 138, 0.38), transparent 70%),
-      radial-gradient(60% 55% at 92% -10%, rgba(95, 184, 255, 0.45), transparent 72%),
-      linear-gradient(180deg, #23292f 0%, #0d1014 55%, #0a0c0f 100%);
-    box-shadow: 0 18px 40px rgba(16, 32, 45, 0.25), inset 0 1px 0 rgba(190, 225, 245, 0.25), inset 0 0 0 1px rgba(255,255,255,0.05);
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.024) 0 1px, transparent 1px 3px),
+      linear-gradient(165deg, #343538, #1e1f21 60%, #18191a);
   }
-  .plate.surgeon .logo { font: 300 1.7rem/1 var(--font); letter-spacing: 0.04em; color: #ffffff;
-    text-shadow: 0 0 14px rgba(110, 190, 255, 0.7); }
-  .plate.surgeon .logo b { font-weight: 700; color: #7cc8ff; }
-  .meters { display: flex; justify-content: space-between; gap: 14px; }
-  .meter { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
-  .meter .bar { position: relative; flex: 1; width: 22px; border-radius: 3px; overflow: hidden;
-    background: linear-gradient(90deg, #d8dde2, #f3f5f7 45%, #c4cad0); box-shadow: inset 0 0 0 1px #000; }
-  .meter .fill { position: absolute; left: 1px; right: 1px; bottom: 1px; border-radius: 2px;
-    background: linear-gradient(90deg, #2f9e2a, #8fe080 30%, #b9f5a8 46%, #42b636 52%, #2a8f25); }
-  .meter .target { position: absolute; left: 0; right: 0; height: 3px; transform: translateY(50%);
-    background: #1d6fd6; box-shadow: 0 0 5px #4fa8ff; }
-  .meter span { font: 600 0.62rem/1 var(--font); letter-spacing: 0.06em; color: #8fb1cc; }
-  .plate .rails { display: flex; justify-content: space-between; align-items: stretch; gap: 10px; }
-  .rail { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
-  .rail .track { position: relative; flex: 1; width: 4px; border-radius: 2px; background: #0c0c0d; box-shadow: inset 0 0 0 1px #000; }
-  .rail .cap { position: absolute; left: 50%; width: 26px; height: 12px; transform: translate(-50%, 50%);
-    border-radius: 2px; background: linear-gradient(180deg, #d9dadb, #8f9194 48%, #6d6f72 52%, #b9bbbe); box-shadow: 0 2px 4px rgba(0,0,0,0.6); }
-  .rail span { font: 500 0.58rem/1 var(--grotesk); letter-spacing: 0.08em; color: #a9abae; white-space: nowrap; }
-  .rail.lit span { color: var(--amber); }
+  .take .logo { font-weight: 600; letter-spacing: 0.16em; font-size: 0.74rem; }
+  .take.on .led { background: var(--amber); box-shadow: 0 0 6px rgba(232, 180, 106, 0.7); }
+  .rails { position: relative; display: flex; justify-content: space-between; gap: 3%; }
+  .rail { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .rail .track { position: relative; flex: 1; width: 3px; border-radius: 2px; background: #060607; box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+  .rail .cap {
+    position: absolute; left: 50%; bottom: 0; width: 17px; height: 8px; transform: translate(-50%, 50%); border-radius: 1.5px;
+    background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(0,0,0,0.25) 2px 3px), linear-gradient(180deg, #e6e7e8, #9c9ea1 48%, #6c6e71 52%, #bdbfc2);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.75); transition: bottom 1200ms var(--ease-out);
+  }
+  .take.on .rail .cap { bottom: var(--p); }
+  .take.on .rail.lit .scale { color: var(--amber); }
 
-  .text { min-width: 0; display: flex; flex-direction: column; gap: 20px; flex: 1; }
-  .download { margin-top: auto; }
-  h2 { margin: 0; font-weight: 300; font-size: clamp(2.2rem, 5.5vw, 3.2rem); line-height: 1.05; text-wrap: balance; }
-  h2 b { font-weight: 700; color: var(--blue); }
-  h2.grotesk { font: 700 clamp(2.2rem, 5.5vw, 3.2rem)/1.05 var(--grotesk); letter-spacing: 0.06em; }   /* same size and line as the other title, so the subtitles line up */
-  .tag { margin: 6px 0 0; color: var(--muted); font-size: 1.05rem; }
-  .lead { margin: 0; max-width: 62ch; }
-  .download { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+  .meter:nth-child(2) .fill, .rail:nth-child(2) .cap { transition-delay: 70ms; }
+  .meter:nth-child(3) .fill, .rail:nth-child(3) .cap { transition-delay: 140ms; }
+  .meter:nth-child(4) .fill, .rail:nth-child(4) .cap { transition-delay: 210ms; }
+  .meter:nth-child(5) .fill, .rail:nth-child(5) .cap { transition-delay: 280ms; }
+  .rail:nth-child(6) .cap { transition-delay: 350ms; }
+  .rail:nth-child(7) .cap { transition-delay: 420ms; }
+
+  /* Text */
+  .text { min-width: 0; display: grid; gap: 28px; }
+  .text h2 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; }
+  .tag { margin: 6px 0 0; color: var(--muted); font-size: 1rem; }
+  .lead { margin: 0; max-width: 56ch; color: var(--soft); }
+  .specs { margin: 0; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 4px 48px; }
+  .specs div { display: grid; gap: 2px; }
+  .specs dt { color: var(--muted); font-size: 0.8rem; }
+  .specs dd { margin: 0; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .download { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+
   .button {
-    display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; border-radius: 6px;
-    border: 1px solid var(--blue-deep); color: #ffffff; font: 600 1.05rem/1 var(--font); text-decoration: none;
-    background: linear-gradient(180deg, #6cc0ff 0%, #2f9bf0 48%, #1477cf 52%, #2a8fe6 100%);
-    box-shadow: 0 0 16px var(--glow), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
-    transition: transform 160ms var(--ease-out), box-shadow 200ms ease, filter 200ms ease;
+    display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 22px 0 18px; border-radius: 999px;
+    background: var(--ink); color: #141414; font: 500 0.95rem/1 var(--font); letter-spacing: -0.005em; text-decoration: none;
+    transition: background 200ms ease, transform 160ms var(--ease-out);
   }
-  @media (hover: hover) and (pointer: fine) {
-    .button:hover { filter: brightness(1.08); box-shadow: 0 0 24px var(--glow), inset 0 0 0 1px rgba(255, 255, 255, 0.6); }
-  }
+  @media (hover: hover) and (pointer: fine) { .button:hover { background: #ffffff; } }
   .button:active { transform: scale(0.97); }
-  .button:focus-visible { outline: 3px solid var(--blue-deep); outline-offset: 3px; }
-  .button svg { width: 18px; height: 18px; }
-  .count {
-    margin: 0; display: inline-flex; align-items: baseline; gap: 6px;
-    padding: 6px 12px; border-radius: 999px; background: #eef5fb; border: 1px solid var(--line);
-    color: var(--muted); font-size: 0.88rem;
-  }
-  .count { transition: opacity 250ms ease, transform 250ms var(--ease-out); }
-  @starting-style { .count { opacity: 0; transform: translateY(2px); } }
-  .count b { color: var(--blue-deep); font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
-  .meta { margin: 0; color: var(--muted); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+  .button:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 4px; }
+  .button svg { width: 16px; height: 16px; flex: none; }
+  .count { margin: 0; color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 
-  .install { padding-block: 32px 48px; }
-  .install h2 { font: 600 1.05rem/1.4 var(--font); margin: 0 0 10px; }
-  .install ol { margin: 0; padding-left: 1.3em; color: var(--muted); max-width: 70ch; display: grid; gap: 6px; }
-  .install strong { color: var(--ink); font-weight: 600; }
-  footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding-block: 0 32px; padding-inline: 20px; }
+  /* Install */
+  .install { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px clamp(40px, 7vw, 96px); padding-block: clamp(56px, 8vw, 96px); }
+  .install h2 { margin: 0; font-size: 1.15rem; font-weight: 500; letter-spacing: -0.01em; }
+  .install p.req { margin: 10px 0 0; color: var(--muted); font-size: 0.925rem; max-width: 28ch; }
+  .install ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; counter-reset: s; max-width: 58ch; }
+  .install li { counter-increment: s; display: grid; grid-template-columns: 36px minmax(0, 1fr); color: var(--soft); }
+  .install li::before { content: counter(s); font: 500 0.85rem/1.9 var(--mono); color: var(--muted); }
+  .install strong { color: var(--ink); font-weight: 500; }
 
-  @media (max-width: 860px) {
-    .products { grid-template-columns: minmax(0, 1fr); gap: 48px; }
-    .plate { height: 240px; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 0 32px 48px; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 820px) {
+    .product, .install { grid-template-columns: minmax(0, 1fr); }
+    .unit { max-width: 260px; }
   }
-  .product { animation: arrive 500ms var(--ease-out) both; }
-  .product + .product { animation-delay: 70ms; }
-  @keyframes arrive { from { opacity: 0; transform: translateY(8px); } }
+  @media (max-width: 480px) {
+    .wrap { padding-inline: 20px; } footer { padding-inline: 20px; }
+    header.site { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .specs { grid-template-columns: repeat(3, auto); gap: 4px 28px; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .button { transition: filter 200ms ease, box-shadow 200ms ease; }
+    .meter .fill, .rail .cap, .led, .button { transition: none !important; }
     .button:active { transform: none; }
-    .product { animation: fade 300ms ease both; }
-    @keyframes fade { from { opacity: 0; } }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="site">
-    <p class="brand">PHEIPEN</p>
-    <p class="claim">Gratis Plugins für macOS, VST3 und AU</p>
+    <h1>PHEIPEN</h1>
+    <p>Gratis Plugins für macOS</p>
   </header>
 
-  <div class="products">
-  <section class="product" aria-labelledby="surgeon-title">
-    <div class="visual" aria-hidden="true">
-      <div class="plate surgeon">
-        <div class="logo">808 <b>SURGEON</b></div>
-        <div class="meters">
-          <div class="meter"><div class="bar"><div class="fill" style="height: 86%"></div><div class="target" style="bottom: 86%"></div></div><span>SUB</span></div>
-          <div class="meter"><div class="bar"><div class="fill" style="height: 46%"></div><div class="target" style="bottom: 52%"></div></div><span>H2</span></div>
-          <div class="meter"><div class="bar"><div class="fill" style="height: 62%"></div><div class="target" style="bottom: 66%"></div></div><span>H3</span></div>
-          <div class="meter"><div class="bar"><div class="fill" style="height: 33%"></div><div class="target" style="bottom: 40%"></div></div><span>H4</span></div>
-          <div class="meter"><div class="bar"><div class="fill" style="height: 41%"></div><div class="target" style="bottom: 46%"></div></div><span>H5</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="text">
-      <div>
-        <h2 id="surgeon-title">808 <b>SURGEON</b></h2>
-        <p class="tag">Harmonic Balancer für 808s</p>
-      </div>
-      <p class="lead">808 SURGEON bringt jede 808 automatisch in Balance, ganz ohne EQ. Das Plugin erkennt Tonhöhe und
-        Obertöne deiner 808, vergleicht sie mit einem Zielprofil und ergänzt oder dämpft die Obertöne H2 bis H5 genau
-        phasengleich zum Original. Die 808 behält ihren Druck, folgt Glides und Pitch-Drift und klingt auf jeder Note
-        gleich ausgewogen.</p>
-      <div class="download">
-        <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/v1.0.0/808-SURGEON-1.0.0.pkg">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
-          808 SURGEON herunterladen
-        </a>
-        <p class="count" data-asset="808-SURGEON-1.0.0.pkg" hidden><b>0</b> Downloads</p>
-        <p class="meta">Version 1.0.0 · 6 MB</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="product" aria-labelledby="first-title">
-    <div class="visual" aria-hidden="true">
-      <div class="plate take">
-        <div class="logo">FIRST TAKE</div>
-        <div class="rails">
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 78%"></div></div><span>EQ</span></div>
-          <div class="rail lit"><div class="track"><div class="cap" style="bottom: 46%"></div></div><span>COMP</span></div>
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 18%"></div></div><span>HEAT</span></div>
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 30%"></div></div><span>AIR</span></div>
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 12%"></div></div><span>VERB</span></div>
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 22%"></div></div><span>DELAY</span></div>
-          <div class="rail"><div class="track"><div class="cap" style="bottom: 50%"></div></div><span>OUT</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="text">
-      <div>
-        <h2 class="grotesk" id="first-title">FIRST TAKE</h2>
-        <p class="tag">Vocal-Channelstrip für schnelle Aufnahmen</p>
-      </div>
-      <p class="lead">FIRST TAKE ist ein kompletter Vocal-Kanalzug in einem Plugin. Pro Funktion gibt es einen Fader,
-        den Rest regelt das Plugin: Die Schwellen passen sich der Stimme automatisch an. Die Stimme klingt
-        sofort fertig, und du kannst dich aufs Aufnehmen konzentrieren.</p>
-      <div class="download">
-        <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/first-take-v1.0.0/FIRST-TAKE-1.0.0.pkg">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
-          FIRST TAKE herunterladen
-        </a>
-        <p class="count" data-asset="FIRST-TAKE-1.0.0.pkg" hidden><b>0</b> Downloads</p>
-        <p class="meta">Version 1.0.0 · 7 MB</p>
-      </div>
-    </div>
-  </section>
-
+  <div class="intro">
+    <p>Zwei Plugins aus meinem Studio. <span>Kostenlos, für jeden Mac mit Apple Silicon.</span></p>
   </div>
 
+  <main>
+    <section class="product" aria-labelledby="surgeon-title">
+      <div class="unit surgeon" aria-hidden="true">
+        <div class="face">
+          <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+          <div class="topline"><div class="logo">808 <b>SURGEON</b></div><i class="led"></i></div>
+          <div class="meters">
+            <div class="meter"><div class="bar"><div class="fill" style="--h: 84%"></div><div class="target" style="--t: 84%"></div></div><span class="scale">SUB</span></div>
+            <div class="meter"><div class="bar"><div class="fill" style="--h: 50%"></div><div class="target" style="--t: 52%"></div></div><span class="scale">H2</span></div>
+            <div class="meter"><div class="bar"><div class="fill" style="--h: 64%"></div><div class="target" style="--t: 66%"></div></div><span class="scale">H3</span></div>
+            <div class="meter"><div class="bar"><div class="fill" style="--h: 38%"></div><div class="target" style="--t: 40%"></div></div><span class="scale">H4</span></div>
+            <div class="meter"><div class="bar"><div class="fill" style="--h: 45%"></div><div class="target" style="--t: 46%"></div></div><span class="scale">H5</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="text">
+        <div>
+          <h2 id="surgeon-title">808 SURGEON</h2>
+          <p class="tag">Harmonic Balancer für 808s</p>
+        </div>
+        <p class="lead">808 SURGEON bringt jede 808 automatisch in Balance, ganz ohne EQ. Das Plugin erkennt Tonhöhe und
+          Obertöne deiner 808, vergleicht sie mit einem Zielprofil und ergänzt oder dämpft die Obertöne H2 bis H5 genau
+          phasengleich zum Original. Die 808 behält ihren Druck, folgt Glides und Pitch-Drift und klingt auf jeder Note
+          gleich ausgewogen.</p>
+        <dl class="specs">
+          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Formate</dt><dd>VST3, AU</dd></div>
+          <div><dt>Grösse</dt><dd>6 MB</dd></div>
+        </dl>
+        <div class="download">
+          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/v1.0.0/808-SURGEON-1.0.0.pkg">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
+            808 SURGEON herunterladen
+          </a>
+          <p class="count" data-asset="808-SURGEON-1.0.0.pkg" hidden><span>0</span> Downloads</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="product" aria-labelledby="first-title">
+      <div class="unit take" aria-hidden="true">
+        <div class="face">
+          <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+          <div class="topline"><div class="logo">FIRST TAKE</div><i class="led"></i></div>
+          <div class="rails">
+            <div class="rail"><div class="track"><div class="cap" style="--p: 78%"></div></div><span class="scale">EQ</span></div>
+            <div class="rail lit"><div class="track"><div class="cap" style="--p: 52%"></div></div><span class="scale">COMP</span></div>
+            <div class="rail"><div class="track"><div class="cap" style="--p: 22%"></div></div><span class="scale">HEAT</span></div>
+            <div class="rail"><div class="track"><div class="cap" style="--p: 34%"></div></div><span class="scale">AIR</span></div>
+            <div class="rail"><div class="track"><div class="cap" style="--p: 16%"></div></div><span class="scale">VERB</span></div>
+            <div class="rail"><div class="track"><div class="cap" style="--p: 26%"></div></div><span class="scale">DLY</span></div>
+            <div class="rail"><div class="track"><div class="cap" style="--p: 58%"></div></div><span class="scale">OUT</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="text">
+        <div>
+          <h2 id="first-title">FIRST TAKE</h2>
+          <p class="tag">Vocal-Channelstrip für schnelle Aufnahmen</p>
+        </div>
+        <p class="lead">FIRST TAKE ist ein kompletter Vocal-Kanalzug in einem Plugin. Pro Funktion gibt es einen Fader,
+          den Rest regelt das Plugin: Die Schwellen passen sich der Stimme automatisch an. Die Stimme klingt
+          sofort fertig, und du kannst dich aufs Aufnehmen konzentrieren.</p>
+        <dl class="specs">
+          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Formate</dt><dd>VST3, AU</dd></div>
+          <div><dt>Grösse</dt><dd>7 MB</dd></div>
+        </dl>
+        <div class="download">
+          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/first-take-v1.0.0/FIRST-TAKE-1.0.0.pkg">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
+            FIRST TAKE herunterladen
+          </a>
+          <p class="count" data-asset="FIRST-TAKE-1.0.0.pkg" hidden><span>0</span> Downloads</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <section class="install" aria-labelledby="install-title">
-    <h2 id="install-title">Installation</h2>
+    <div>
+      <h2 id="install-title">Installation</h2>
+      <p class="req">Mac mit Apple-Silicon-Chip, macOS 13 oder neuer und eine DAW mit VST3 oder Audio Unit.</p>
+    </div>
     <ol>
-      <li>Voraussetzung: ein Mac mit Apple-Silicon-Chip und macOS 13 oder neuer, dazu eine DAW mit VST3 oder Audio Unit.</li>
-      <li>Die heruntergeladene Datei mit der Endung <strong>.pkg</strong> doppelklicken.</li>
-      <li>Meldet macOS, die Datei könne nicht geprüft werden: auf „Fertig“ klicken, dann <strong>Systemeinstellungen &gt; Datenschutz &amp; Sicherheit</strong> öffnen und beim Plugin auf <strong>„Trotzdem öffnen“</strong> klicken.</li>
-      <li>Dem Installer folgen. Danach in deiner DAW nach neuen Plugins suchen lassen.</li>
+      <li><span>Die heruntergeladene Datei mit der Endung <strong>.pkg</strong> doppelklicken.</span></li>
+      <li><span>Meldet macOS, die Datei könne nicht geprüft werden: auf „Fertig“ klicken, dann <strong>Systemeinstellungen &gt; Datenschutz &amp; Sicherheit</strong> öffnen und beim Plugin auf <strong>„Trotzdem öffnen“</strong> klicken.</span></li>
+      <li><span>Dem Installer folgen. Danach in deiner DAW nach neuen Plugins suchen lassen.</span></li>
     </ol>
   </section>
 </div>
 
+<footer>© Pheipen. Die Plugins sind kostenlos und werden ohne Gewähr weitergegeben.</footer>
+
 <script>
+  // Power-up: the plates switch on once after load (meters rise, faders glide to their positions)
+  (function () {
+    var units = document.querySelectorAll(".unit");
+    var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function on() { units.forEach(function (u, i) { setTimeout(function () { u.classList.add("on"); }, still ? 0 : 300 + i * 200); }); }
+    if (document.readyState === "complete") on(); else window.addEventListener("load", on);
+  })();
+
   // Download counter: GitHub counts every download of a release file and publishes the numbers
   fetch("https://api.github.com/repos/pheipen/808-surgeon/releases")
     .then(function (r) { return r.ok ? r.json() : []; })
@@ -238,14 +291,12 @@
       document.querySelectorAll(".count[data-asset]").forEach(function (el) {
         var n = counts[el.dataset.asset];
         if (typeof n !== "number") return;
-        el.querySelector("b").textContent = n.toLocaleString("de-CH");
+        el.querySelector("span").textContent = n.toLocaleString("de-CH");
         el.lastChild.textContent = n === 1 ? " Download" : " Downloads";
         el.hidden = false;
       });
     })
     .catch(function () {});   // without the numbers the page simply shows no counter
 </script>
-
-<footer>© Pheipen · Die Plugins sind kostenlos und werden ohne Gewähr weitergegeben.</footer>
 </body>
 </html>
