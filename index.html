@@ -84,6 +84,12 @@
   .button:hover { filter: brightness(1.08); box-shadow: 0 0 24px var(--glow), inset 0 0 0 1px rgba(255, 255, 255, 0.6); }
   .button:focus-visible { outline: 3px solid var(--blue-deep); outline-offset: 3px; }
   .button svg { width: 18px; height: 18px; }
+  .count {
+    margin: 0; display: inline-flex; align-items: baseline; gap: 6px;
+    padding: 6px 12px; border-radius: 999px; background: #eef5fb; border: 1px solid var(--line);
+    color: var(--muted); font-size: 0.88rem;
+  }
+  .count b { color: var(--blue-deep); font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
   .meta { margin: 0; color: var(--muted); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
 
   .install { padding-block: 32px 48px; }
@@ -133,6 +139,7 @@
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
           808 SURGEON herunterladen
         </a>
+        <p class="count" data-asset="808-SURGEON-1.0.0.pkg" hidden><b>0</b> Downloads</p>
         <p class="meta">Version 1.0.0 · 6 MB</p>
       </div>
     </div>
@@ -174,6 +181,7 @@
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
           FIRST TAKE herunterladen
         </a>
+        <p class="count" data-asset="FIRST-TAKE-1.0.0.pkg" hidden><b>0</b> Downloads</p>
         <p class="meta">Version 1.0.0 · 7 MB</p>
       </div>
     </div>
@@ -191,6 +199,26 @@
     </ol>
   </section>
 </div>
+
+<script>
+  // Download counter: GitHub counts every download of a release file and publishes the numbers
+  fetch("https://api.github.com/repos/pheipen/808-surgeon/releases")
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (releases) {
+      var counts = {};
+      releases.forEach(function (rel) {
+        (rel.assets || []).forEach(function (a) { counts[a.name] = (counts[a.name] || 0) + a.download_count; });
+      });
+      document.querySelectorAll(".count[data-asset]").forEach(function (el) {
+        var n = counts[el.dataset.asset];
+        if (typeof n !== "number") return;
+        el.querySelector("b").textContent = n.toLocaleString("de-CH");
+        el.lastChild.textContent = n === 1 ? " Download" : " Downloads";
+        el.hidden = false;
+      });
+    })
+    .catch(function () {});   // without the numbers the page simply shows no counter
+</script>
 
 <footer>© Pheipen · Die Plugins sind kostenlos und werden ohne Gewähr weitergegeben.</footer>
 </body>
