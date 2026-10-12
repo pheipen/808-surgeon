@@ -21,7 +21,6 @@
     --muted: #7d7b77;
     --line: rgba(237, 234, 228, 0.09);
     --amber: #e8b46a;
-    --blue: #7cc4f5;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --font: "Geist", "Helvetica Neue", Arial, sans-serif;
     --mono: "Geist Mono", ui-monospace, Menlo, monospace;
@@ -73,33 +72,29 @@
   .led { width: 5px; height: 5px; border-radius: 50%; background: #2a2b2d; transition: background 400ms ease, box-shadow 400ms ease; }
   .scale { font: 500 0.42rem/1 var(--mono); letter-spacing: 0.06em; color: #85888c; }
 
-  .surgeon .face {
-    background:
-      radial-gradient(70% 70% at 8% 120%, rgba(123, 224, 138, 0.22), transparent 70%),
-      radial-gradient(60% 60% at 96% -14%, rgba(110, 190, 250, 0.30), transparent 72%),
-      linear-gradient(180deg, #1f2429 0%, #0d0f12 60%, #0a0b0d 100%);
-  }
-  .surgeon .logo { font-weight: 300; letter-spacing: 0.02em; }
-  .surgeon .logo b { font-weight: 600; color: var(--blue); }
-  .surgeon.on .led { background: var(--blue); box-shadow: 0 0 6px rgba(124, 196, 245, 0.7); }
-  .meters { position: relative; display: flex; justify-content: space-between; gap: 8%; }
-  .meter { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .meter .bar { position: relative; flex: 1; width: 9px; border-radius: 2px; background: #0b0c0e; box-shadow: inset 0 0 0 1px #000, 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
-  .meter .fill {
-    position: absolute; left: 1px; right: 1px; bottom: 1px; height: var(--h); border-radius: 1px;
-    background: linear-gradient(90deg, #3b8f37, #8ed37f 45%, #4aa244);
-    transform-origin: bottom; transform: scaleY(0); transition: transform 1200ms var(--ease-out);
-  }
-  .meter .target { position: absolute; left: 0; right: 0; bottom: var(--t); height: 2px; transform: translateY(50%); background: #5aa8ef; }
-  .surgeon.on .fill { transform: scaleY(1); }
-
-  .take .face {
+  /* Both plugins share the graphite look of their interfaces: brushed panel, warm lit labels and lights */
+  .surgeon .face, .take .face {
     background:
       repeating-linear-gradient(90deg, rgba(255,255,255,0.024) 0 1px, transparent 1px 3px),
       linear-gradient(165deg, #343538, #1e1f21 60%, #18191a);
   }
-  .take .logo { font-weight: 600; letter-spacing: 0.16em; font-size: 0.74rem; }
-  .take.on .led { background: var(--amber); box-shadow: 0 0 6px rgba(232, 180, 106, 0.7); }
+  .surgeon .logo, .take .logo { font-weight: 600; letter-spacing: 0.16em; font-size: 0.74rem; }
+  .surgeon.on .led, .take.on .led { background: var(--amber); box-shadow: 0 0 6px rgba(232, 180, 106, 0.7); }
+  /* 808 SURGEON: overtone levels as warm light in recessed slots, the target as a white line */
+  .meters { position: relative; display: flex; justify-content: space-between; gap: 8%; }
+  .meter { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .meter .bar { position: relative; flex: 1; width: 5px; border-radius: 3px; background: #060607; box-shadow: inset 0 0 0 1px #000, 0 1px 0 rgba(255,255,255,0.06); }
+  .meter .fill {
+    position: absolute; left: 1px; right: 1px; bottom: 1px; height: var(--h); border-radius: 2px;
+    background: linear-gradient(90deg, #ffc27a, #fff1dc 50%, #ffc27a);
+    box-shadow: 0 0 5px rgba(255, 194, 122, 0.55), 0 0 12px rgba(255, 194, 122, 0.25);
+    transform-origin: bottom; transform: scaleY(0); transition: transform 1200ms var(--ease-out);
+  }
+  .meter .target {
+    position: absolute; left: 50%; bottom: var(--t); width: 15px; height: 2px; border-radius: 1px; transform: translate(-50%, 50%);
+    background: #e4e4e4; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  }
+  .surgeon.on .fill { transform: scaleY(1); }
   .rails { position: relative; display: flex; justify-content: space-between; gap: 3%; }
   .rail { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .rail .track { position: relative; flex: 1; width: 3px; border-radius: 2px; background: #060607; box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
@@ -182,7 +177,7 @@
       <div class="unit surgeon" aria-hidden="true">
         <div class="face">
           <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
-          <div class="topline"><div class="logo">808 <b>SURGEON</b></div><i class="led"></i></div>
+          <div class="topline"><div class="logo">808 SURGEON</div><i class="led"></i></div>
           <div class="meters">
             <div class="meter"><div class="bar"><div class="fill" style="--h: 84%"></div><div class="target" style="--t: 84%"></div></div><span class="scale">SUB</span></div>
             <div class="meter"><div class="bar"><div class="fill" style="--h: 50%"></div><div class="target" style="--t: 52%"></div></div><span class="scale">H2</span></div>
