@@ -200,18 +200,18 @@
         <p class="lead">808 SURGEON bringt jede 808 automatisch in Balance, ganz ohne EQ. Das Plugin erkennt Tonhöhe und
           Obertöne deiner 808, vergleicht sie mit einem Zielprofil und ergänzt oder dämpft die Obertöne H2 bis H5 genau
           phasengleich zum Original. Die 808 behält ihren Druck, folgt Glides und Pitch-Drift und klingt auf jeder Note
-          gleich ausgewogen.</p>
+          gleich ausgewogen. Die zuletzt gespielte Note ziehst du als WAV direkt in dein Projekt, immer auf C gestimmt.</p>
         <dl class="specs">
-          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Version</dt><dd>1.1.0</dd></div>
           <div><dt>Formate</dt><dd>VST3, AU</dd></div>
           <div><dt>Grösse</dt><dd>6 MB</dd></div>
         </dl>
         <div class="download">
-          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/v1.0.0/808-SURGEON-1.0.0.pkg">
+          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/v1.1.0/808-SURGEON-1.1.0.pkg">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
             808 SURGEON herunterladen
           </a>
-          <p class="count" data-asset="808-SURGEON-1.0.0.pkg" hidden><span>0</span> Downloads</p>
+          <p class="count" data-asset="808-SURGEON-1.1.0.pkg 808-SURGEON-1.0.0.pkg" hidden><span>0</span> Downloads</p>
         </div>
       </div>
     </section>
@@ -289,8 +289,10 @@
         (rel.assets || []).forEach(function (a) { counts[a.name] = (counts[a.name] || 0) + a.download_count; });
       });
       document.querySelectorAll(".count[data-asset]").forEach(function (el) {
-        var n = counts[el.dataset.asset];
-        if (typeof n !== "number") return;
+        // all versions of a plugin together (space separated file names)
+        var names = el.dataset.asset.split(" ").filter(function (name) { return typeof counts[name] === "number"; });
+        if (!names.length) return;
+        var n = names.reduce(function (sum, name) { return sum + counts[name]; }, 0);
         el.querySelector("span").textContent = n.toLocaleString("de-CH");
         el.lastChild.textContent = n === 1 ? " Download" : " Downloads";
         el.hidden = false;
