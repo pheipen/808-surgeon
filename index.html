@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pheipen Plugins</title>
-<meta name="description" content="Gratis Plugins von Pheipen für macOS (VST3 und AU): 808 SURGEON und FIRST TAKE.">
+<title>Pheipen Plugins &amp; Tools</title>
+<meta name="description" content="Gratis Plugins und Tools von Pheipen für macOS: STEM DOCTOR, 808 SURGEON und FIRST TAKE (VST3 und AU).">
 <meta name="theme-color" content="#121212">
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,13 +73,13 @@
   .scale { font: 500 0.42rem/1 var(--mono); letter-spacing: 0.06em; color: #85888c; }
 
   /* Both plugins share the graphite look of their interfaces: brushed panel, warm lit labels and lights */
-  .surgeon .face, .take .face {
+  .surgeon .face, .take .face, .doctor .face {
     background:
       repeating-linear-gradient(90deg, rgba(255,255,255,0.024) 0 1px, transparent 1px 3px),
       linear-gradient(165deg, #343538, #1e1f21 60%, #18191a);
   }
-  .surgeon .logo, .take .logo { font-weight: 600; letter-spacing: 0.16em; font-size: 0.74rem; }
-  .surgeon.on .led, .take.on .led { background: var(--amber); box-shadow: 0 0 6px rgba(232, 180, 106, 0.7); }
+  .surgeon .logo, .take .logo, .doctor .logo { font-weight: 600; letter-spacing: 0.16em; font-size: 0.74rem; }
+  .surgeon.on .led, .take.on .led, .doctor.on .led { background: var(--amber); box-shadow: 0 0 6px rgba(232, 180, 106, 0.7); }
   /* 808 SURGEON: overtone levels as warm light in recessed slots, the target as a white line */
   .meters { position: relative; display: flex; justify-content: space-between; gap: 8%; }
   .meter { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -105,6 +105,23 @@
   }
   .take.on .rail .cap { bottom: var(--p); }
   .take.on .rail.lit .scale { color: var(--amber); }
+
+  /* STEM DOCTOR: three stems, each in its own recessed lane, waveforms lit in the same warm light */
+  .lanes { position: relative; display: grid; grid-template-rows: repeat(3, 1fr); gap: 9%; }
+  .lane { display: grid; grid-template-columns: 2.9rem minmax(0, 1fr); align-items: center; gap: 6px; }
+  .wave {
+    height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; border-radius: 4px;
+    background: #060607; box-shadow: inset 0 0 0 1px #000, 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .wave i {
+    width: 2px; height: var(--h); border-radius: 1px;
+    background: linear-gradient(180deg, #ffc27a, #fff1dc 50%, #ffc27a);
+    box-shadow: 0 0 4px rgba(255, 194, 122, 0.5);
+    transform: scaleY(0.08); opacity: 0.35; transition: transform 1100ms var(--ease-out), opacity 600ms ease;
+  }
+  .doctor.on .wave i { transform: scaleY(1); opacity: 1; }
+  .lane:nth-child(2) .wave i { transition-delay: 140ms; }
+  .lane:nth-child(3) .wave i { transition-delay: 280ms; }
 
   .meter:nth-child(2) .fill, .rail:nth-child(2) .cap { transition-delay: 70ms; }
   .meter:nth-child(3) .fill, .rail:nth-child(3) .cap { transition-delay: 140ms; }
@@ -156,7 +173,7 @@
     .specs { grid-template-columns: repeat(3, auto); gap: 4px 28px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .meter .fill, .rail .cap, .led, .button { transition: none !important; }
+    .meter .fill, .rail .cap, .led, .button, .wave i { transition: none !important; }
     .button:active { transform: none; }
   }
 </style>
@@ -165,14 +182,51 @@
 <div class="wrap">
   <header class="site">
     <h1>PHEIPEN</h1>
-    <p>Gratis Plugins für macOS</p>
+    <p>Gratis Plugins und Tools für macOS</p>
   </header>
 
   <div class="intro">
-    <p>Zwei Plugins aus meinem Studio. <span>Kostenlos, für jeden Mac mit Apple Silicon.</span></p>
+    <p>Drei Werkzeuge aus meinem Studio. <span>Kostenlos, für jeden Mac mit Apple Silicon.</span></p>
   </div>
 
   <main>
+    <section class="product" aria-labelledby="doctor-title">
+      <div class="unit doctor" aria-hidden="true">
+        <div class="face">
+          <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+          <div class="topline"><div class="logo">STEM DOCTOR</div><i class="led"></i></div>
+          <div class="lanes">
+            <div class="lane"><span class="scale">01 DRUMS</span><div class="wave"><i style="--h: 27%"></i><i style="--h: 26%"></i><i style="--h: 27%"></i><i style="--h: 56%"></i><i style="--h: 32%"></i><i style="--h: 56%"></i><i style="--h: 66%"></i><i style="--h: 37%"></i><i style="--h: 79%"></i><i style="--h: 53%"></i><i style="--h: 48%"></i><i style="--h: 75%"></i><i style="--h: 34%"></i><i style="--h: 53%"></i><i style="--h: 47%"></i><i style="--h: 23%"></i><i style="--h: 38%"></i><i style="--h: 18%"></i></div></div>
+            <div class="lane"><span class="scale">02 BASS</span><div class="wave"><i style="--h: 22%"></i><i style="--h: 18%"></i><i style="--h: 28%"></i><i style="--h: 53%"></i><i style="--h: 61%"></i><i style="--h: 43%"></i><i style="--h: 35%"></i><i style="--h: 60%"></i><i style="--h: 82%"></i><i style="--h: 66%"></i><i style="--h: 38%"></i><i style="--h: 42%"></i><i style="--h: 64%"></i><i style="--h: 62%"></i><i style="--h: 36%"></i><i style="--h: 22%"></i><i style="--h: 27%"></i><i style="--h: 28%"></i></div></div>
+            <div class="lane"><span class="scale">03 VOX</span><div class="wave"><i style="--h: 15%"></i><i style="--h: 38%"></i><i style="--h: 23%"></i><i style="--h: 49%"></i><i style="--h: 48%"></i><i style="--h: 39%"></i><i style="--h: 76%"></i><i style="--h: 37%"></i><i style="--h: 72%"></i><i style="--h: 59%"></i><i style="--h: 45%"></i><i style="--h: 75%"></i><i style="--h: 33%"></i><i style="--h: 58%"></i><i style="--h: 40%"></i><i style="--h: 28%"></i><i style="--h: 38%"></i><i style="--h: 15%"></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="text">
+        <div>
+          <h2 id="doctor-title">STEM DOCTOR</h2>
+          <p class="tag">Saubere Stem-Namen in Sekunden</p>
+        </div>
+        <p class="lead">STEM DOCTOR gibt deinen Stems einheitliche Namen. Zieh einen Stem-Ordner ins Fenster: Die App
+          erkennt jede Spur am Dateinamen und, wenn der nichts hergibt, am Klang. Auf Wunsch nummeriert sie nach Gruppen,
+          etwa 01.2 Kick oder 04.2 Hook. Leere Spuren, Duplikate sowie Master und Current aus FL Studio sortierst du mit
+          einem Klick aus, und mit gedrückter Play-Taste hörst du jede Spur ab ihrem ersten Ton an. Deine Originale bleiben
+          unberührt: STEM DOCTOR schreibt umbenannte Kopien in einen Ordner deiner Wahl.</p>
+        <dl class="specs">
+          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Format</dt><dd>Mac-App</dd></div>
+          <div><dt>Grösse</dt><dd>27 MB</dd></div>
+        </dl>
+        <div class="download">
+          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/stem-doctor-v1.0.0/Stem-Doctor-1.0.0.pkg">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
+            STEM DOCTOR herunterladen
+          </a>
+          <p class="count" data-asset="Stem-Doctor-1.0.0.pkg" hidden><span>0</span> Downloads</p>
+        </div>
+      </div>
+    </section>
+
     <section class="product" aria-labelledby="surgeon-title">
       <div class="unit surgeon" aria-hidden="true">
         <div class="face">
@@ -254,17 +308,17 @@
   <section class="install" aria-labelledby="install-title">
     <div>
       <h2 id="install-title">Installation</h2>
-      <p class="req">Mac mit Apple-Silicon-Chip, macOS 13 oder neuer und eine DAW mit VST3 oder Audio Unit.</p>
+      <p class="req">Mac mit Apple-Silicon-Chip und macOS 13 oder neuer (STEM DOCTOR: macOS 14). Für die Plugins eine DAW mit VST3 oder Audio Unit.</p>
     </div>
     <ol>
       <li><span>Die heruntergeladene Datei mit der Endung <strong>.pkg</strong> doppelklicken.</span></li>
-      <li><span>Meldet macOS, die Datei könne nicht geprüft werden: auf „Fertig“ klicken, dann <strong>Systemeinstellungen &gt; Datenschutz &amp; Sicherheit</strong> öffnen und beim Plugin auf <strong>„Trotzdem öffnen“</strong> klicken.</span></li>
-      <li><span>Dem Installer folgen. Danach in deiner DAW nach neuen Plugins suchen lassen.</span></li>
+      <li><span>Meldet macOS, die Datei könne nicht geprüft werden: auf „Fertig“ klicken, dann <strong>Systemeinstellungen &gt; Datenschutz &amp; Sicherheit</strong> öffnen und bei der Datei auf <strong>„Trotzdem öffnen“</strong> klicken.</span></li>
+      <li><span>Dem Installer folgen. Plugins: danach in deiner DAW nach neuen Plugins suchen lassen. STEM DOCTOR findest du danach im Ordner <strong>Programme</strong>.</span></li>
     </ol>
   </section>
 </div>
 
-<footer>© Pheipen. Die Plugins sind kostenlos und werden ohne Gewähr weitergegeben.</footer>
+<footer>© Pheipen. Alle Downloads sind kostenlos und werden ohne Gewähr weitergegeben.</footer>
 
 <script>
   // Power-up: the plates switch on once after load (meters rise, faders glide to their positions)
