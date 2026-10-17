@@ -152,6 +152,19 @@
   .button svg { width: 16px; height: 16px; flex: none; }
   .count { margin: 0; color: var(--muted); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 
+  /* A product that is being reworked: greyed out, a yellow tape across its plate, no download */
+  .construction .unit { position: relative; }
+  .construction .unit .face { filter: grayscale(1) brightness(0.55); }
+  .construction .text { opacity: 0.45; }
+  .tape {
+    position: absolute; left: -6%; right: -6%; top: 50%; transform: translateY(-50%) rotate(-6deg); z-index: 2;
+    padding: 9px 0; text-align: center; color: #141414; font: 600 0.8rem/1 var(--mono); letter-spacing: 0.18em;
+    background: repeating-linear-gradient(135deg, #f5c518 0 22px, #e8b80c 22px 44px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+  }
+  .button.disabled { background: #2a2b2d; color: var(--muted); cursor: not-allowed; }
+  .button.disabled:active { transform: none; }
+
   /* Install */
   .install { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px clamp(40px, 7vw, 96px); padding-block: clamp(56px, 8vw, 96px); }
   .install h2 { margin: 0; font-size: 1.15rem; font-weight: 500; letter-spacing: -0.01em; }
@@ -205,30 +218,33 @@
       <div class="text">
         <div>
           <h2 id="doctor-title">STEM DOCTOR</h2>
-          <p class="tag">Saubere Stem-Namen in Sekunden</p>
+          <p class="tag">Saubere Stem-Namen und fertige Projekte für FL Studio und Ableton Live</p>
         </div>
-        <p class="lead">STEM DOCTOR gibt deinen Stems einheitliche Namen. Zieh einen Stem-Ordner ins Fenster: Die App
-          erkennt jede Spur am Dateinamen und, wenn der nichts hergibt, am Klang. Auf Wunsch nummeriert sie nach Gruppen,
-          etwa 01.2 Kick oder 04.2 Hook. Leere Spuren, Duplikate sowie Master und Current aus FL Studio sortierst du mit
-          einem Klick aus, und mit gedrückter Play-Taste hörst du jede Spur ab ihrem ersten Ton an. Deine Originale bleiben
-          unberührt: STEM DOCTOR schreibt umbenannte Kopien in einen Ordner deiner Wahl.</p>
+        <p class="lead">STEM DOCTOR gibt deinen Stems einheitliche Namen und baut auf Wunsch gleich das Projekt. Zieh einen
+          Stem-Ordner ins Fenster: Die App erkennt jede Spur am Dateinamen und, wenn der nichts hergibt, am Klang, und
+          nummeriert sie nach Gruppen, etwa 01.2 Kick oder 04.2 Hook. Mit deinem Mixing-Template aus FL Studio oder Ableton
+          Live übernimmt sie Namen, Gruppen und Reihenfolge und erstellt ein fertiges Projekt: jeder Stem auf seiner Spur ab
+          Takt 1, das Tempo automatisch erkannt, ungenutzte Kanäle aufgeräumt, Reverbs und Delays bleiben. Leere Spuren,
+          Duplikate sowie Master und Current sortierst du mit einem Klick aus. Deine Originale bleiben unberührt, und ein
+          kurzes Tutorial auf Deutsch oder Englisch zeigt dir beim ersten Start, wie alles geht.</p>
         <dl class="specs">
-          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Version</dt><dd>1.1.0</dd></div>
           <div><dt>Format</dt><dd>Mac-App</dd></div>
           <div><dt>Grösse</dt><dd>27 MB</dd></div>
         </dl>
         <div class="download">
-          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/stem-doctor-v1.0.0/Stem-Doctor-1.0.0.pkg">
+          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/stem-doctor-v1.1.0/Stem-Doctor-1.1.0.pkg">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
             STEM DOCTOR herunterladen
           </a>
-          <p class="count" data-asset="Stem-Doctor-1.0.0.pkg" hidden><span>0</span> Downloads</p>
+          <p class="count" data-asset="Stem-Doctor-1.1.0.pkg Stem-Doctor-1.0.0.pkg" hidden><span>0</span> Downloads</p>
         </div>
       </div>
     </section>
 
-    <section class="product" aria-labelledby="surgeon-title">
+    <section class="product construction" aria-labelledby="surgeon-title">
       <div class="unit surgeon" aria-hidden="true">
+        <div class="tape">UNDER CONSTRUCTION</div>
         <div class="face">
           <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
           <div class="topline"><div class="logo">808 SURGEON</div><i class="led"></i></div>
@@ -256,10 +272,7 @@
           <div><dt>Grösse</dt><dd>6 MB</dd></div>
         </dl>
         <div class="download">
-          <a class="button" href="https://github.com/pheipen/808-surgeon/releases/download/v1.1.0/808-SURGEON-1.1.0.pkg">
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>
-            808 SURGEON herunterladen
-          </a>
+          <span class="button disabled" aria-disabled="true">Under Construction: zurzeit nicht verfügbar</span>
           <p class="count" data-asset="808-SURGEON-1.1.0.pkg 808-SURGEON-1.0.0.pkg" hidden><span>0</span> Downloads</p>
         </div>
       </div>
